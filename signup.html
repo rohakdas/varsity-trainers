@@ -72,39 +72,36 @@
     <div class="message" id="message"></div>
   </div>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
 
-  <script>
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyCFUjqmsW6Do3LJ9JVRV8T4T_i040sk",
+      authDomain: "varsity-trainers.firebaseapp.com",
+      projectId: "varsity-trainers",
+      appId: "1:752520182402:web:4bd0990fc61e5bdd5fd29b"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    document.getElementById("signup-form").addEventListener("submit", function(e) {
+    document.getElementById("signup-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const message = document.getElementById("message");
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          message.style.color = "green";
-          message.textContent = "✅ Account created successfully!";
-        })
-        .catch(error => {
-          message.style.color = "red";
-          message.textContent = `❌ ${error.message}`;
-        });
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        message.style.color = "green";
+        message.textContent = "✅ Account created successfully!";
+      } catch (error) {
+        message.style.color = "red";
+        message.textContent = `❌ ${error.message}`;
+      }
     });
   </script>
 </body>
 </html>
-
-
