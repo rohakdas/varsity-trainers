@@ -50,24 +50,61 @@
     button:hover {
       background: #ff3d2f;
     }
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Create Your Account</h2>
-    <form action="https://formspree.io/f/movlanpe" method="POST">
-      <label for="name">Full Name</label>
-      <input type="text" name="name" id="name" required />
-
+    <form id="signup-form">
       <label for="email">Email Address</label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" id="email" required />
 
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" required />
+      <input type="password" id="password" required />
 
       <button type="submit">Sign Up</button>
     </form>
+    <div class="message" id="message"></div>
   </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    document.getElementById("signup-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          message.style.color = "green";
+          message.textContent = "✅ Account created successfully!";
+        })
+        .catch(error => {
+          message.style.color = "red";
+          message.textContent = `❌ ${error.message}`;
+        });
+    });
+  </script>
 </body>
 </html>
+
 
