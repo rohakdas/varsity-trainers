@@ -3,85 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up</title>
+  <title>Sign Up - Varsity Trainers</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCFUjqmsW6Do3LJ9JVRV8T4T_i040sk",
-      authDomain: "varsity-trainers.firebaseapp.com",
-      projectId: "varsity-trainers",
-      storageBucket: "varsity-trainers.appspot.com",
-      messagingSenderId: "752520182402",
-      appId: "1:752520182402:web:4bd0990fc61e5bdd5fd29b",
-      measurementId: "G-H7PQ87C9P3"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-  </script>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to right, #e1f5fe, #fff8e1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: linear-gradient(to right, #e1f5fe, #fce4ec);
       margin: 0;
+      padding: 0;
     }
-    .form-box {
+    .container {
+      max-width: 400px;
+      margin: 80px auto;
       background: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
       text-align: center;
+      color: #3949ab;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
     }
     input {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
+      margin-top: 6px;
       border: 1px solid #ccc;
+      border-radius: 6px;
     }
     button {
-      padding: 12px;
-      background-color: #3949ab;
+      background: #ff6f61;
       color: white;
+      padding: 12px;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
       width: 100%;
+      margin-top: 24px;
+      font-size: 16px;
+      cursor: pointer;
     }
     button:hover {
-      background-color: #283593;
+      background: #ff3d2f;
     }
   </style>
 </head>
 <body>
-  <div class="form-box">
-    <h2>Sign Up</h2>
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <button onclick="signUp()">Create Account</button>
-    <p id="msg"></p>
+  <div class="container">
+    <h2>Create Your Account</h2>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required />
+
+      <button type="submit">Sign Up</button>
+    </form>
   </div>
-
-  <script>
-    function signUp() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(user => {
-          document.getElementById("msg").textContent = "Signed up successfully!";
-        })
-        .catch(error => {
-          document.getElementById("msg").textContent = error.message;
-        });
-    }
-  </script>
 </body>
 </html>
+
