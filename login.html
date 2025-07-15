@@ -50,21 +50,58 @@
     button:hover {
       background: #ff3d2f;
     }
+    .message {
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Log In</h2>
-    <form action="https://formspree.io/f/movlanpe" method="POST">
+    <form id="login-form">
       <label for="email">Email Address</label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" id="email" required />
 
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" required />
+      <input type="password" id="password" required />
 
       <button type="submit">Log In</button>
     </form>
+    <p class="message" id="login-message"></p>
   </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          document.getElementById("login-message").textContent = "Login successful!";
+          window.location.href = "index.html"; // redirect after login
+        })
+        .catch((error) => {
+          document.getElementById("login-message").textContent = "Error: " + error.message;
+        });
+    });
+  </script>
 </body>
 </html>
+
 
