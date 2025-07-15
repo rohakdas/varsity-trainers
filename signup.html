@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFUjqmsW6Do3LJ9JVRV8T4T_i040sk",
+      authDomain: "varsity-trainers.firebaseapp.com",
+      projectId: "varsity-trainers",
+      storageBucket: "varsity-trainers.appspot.com",
+      messagingSenderId: "752520182402",
+      appId: "1:752520182402:web:4bd0990fc61e5bdd5fd29b",
+      measurementId: "G-H7PQ87C9P3"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #e1f5fe, #fff8e1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .form-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px;
+      background-color: #3949ab;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #283593;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="signUp()">Create Account</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    function signUp() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(user => {
+          document.getElementById("msg").textContent = "Signed up successfully!";
+        })
+        .catch(error => {
+          document.getElementById("msg").textContent = error.message;
+        });
+    }
+  </script>
+</body>
+</html>
