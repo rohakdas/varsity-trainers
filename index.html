@@ -175,10 +175,12 @@
   <header>
     Find a Trainer. Get a Free Session.
   </header>
-<nav class="top-right-link">
+<nav class="top-right-link" id="nav-links">
   <a href="apply.html">Apply to Become a Trainer</a>
-  <a href="login.html">Log In</a>
-  <a href="signup.html">Sign Up</a>
+  <a href="login.html" id="login-link">Log In</a>
+  <a href="signup.html" id="signup-link">Sign Up</a>
+  <span id="user-greeting" style="display: none; font-weight: bold; color: white; margin-right: 10px;"></span>
+  <button id="logout-btn" style="display: none; background-color: #ffffff; color: #3949ab; padding: 10px 18px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer;">Log Out</button>
 </nav>
 
 
@@ -211,6 +213,38 @@
   <footer>
     &copy; 2025 Varsity Trainers. All rights reserved.
   </footer>
+  <script>
+  const auth = firebase.auth();
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    const loginLink = document.getElementById("login-link");
+    const signupLink = document.getElementById("signup-link");
+    const logoutBtn = document.getElementById("logout-btn");
+    const userGreeting = document.getElementById("user-greeting");
+
+    if (user) {
+      // User is signed in
+      loginLink.style.display = "none";
+      signupLink.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+      userGreeting.style.display = "inline-block";
+      userGreeting.textContent = `Hi, ${user.email}`;
+    } else {
+      // User is signed out
+      loginLink.style.display = "inline-block";
+      signupLink.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+      userGreeting.style.display = "none";
+    }
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  });
+</script>
+
 </body>
 </html>
 
