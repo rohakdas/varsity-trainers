@@ -77,11 +77,15 @@
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyCFUjqmsW6Do3LJ9JVRV8T4T_i040sk",
-      authDomain: "varsity-trainers.firebaseapp.com",
-      projectId: "varsity-trainers",
-      appId: "1:752520182402:web:4bd0990fc61e5bdd5fd29b"
-    };
+  apiKey: "AIzaSyCFUjqmsW6Do3LJ9JVRV8T4t_i040sk",
+  authDomain: "varsity-trainers.firebaseapp.com",
+  projectId: "varsity-trainers",
+  storageBucket: "varsity-trainers.appspot.com",
+  messagingSenderId: "752520182402",
+  appId: "1:752520182402:web:4bd0990fc61e5bdd5fd29b",
+  measurementId: "G-H7PQ87C9P3"
+};
+
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
